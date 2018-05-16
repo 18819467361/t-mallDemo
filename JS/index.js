@@ -71,19 +71,12 @@ $(document).ready(function () {
     $("#show_pic").on("load",function () {
         preLoadImg("../images/lunbo/1.jpg","../images/lunbo/2.jpg","../images/lunbo/3.jpg","../images/lunbo/4.jpg")
     });
-
-//        $(".carousel img").load(function () {
-//            preLoadImg("../images/lunbo/1.jpg","../images/lunbo/2.jpg","../images/lunbo/3.jpg","../images/lunbo/4.jpg")
-//        })
 })
 
 // <!--分类推荐部分交互-->
-
     $(document).ready(function () {
-        var $sideBar = $("#sideBar_list");
         var $sideBar_list = $("#sideBar_list li");
         var index = 0;
-//           var $sideBar_content=$(".sideBar_content");
         $sideBar_list.mouseenter(function () {
             var flag = index;
             $sideBar_list.eq(flag).css("backgroundColor", "rgba(0,0,0,0.4)").removeClass("highLight" + flag)
@@ -322,64 +315,18 @@ function right_fixed_fly_in() {
     addOnload(right_fixed_close);
 
 function right_fixed_close() {
-//            兼容性添加事件监听
-    var EventUtil = {
-        addHandler: function (element, type, handler) {
-            if (element.addEventListener) {
-                element.addEventListener(type, handler, false);
-            } else if (element.attachEvent) {
-                element.attachEvent("on" + type, handler);
-            } else {
-                element["on" + type] = handler;
-            }
-        },
-        removeHandler: function (element, type, handler) {
-            if (element.removeEventListener) {
-                element.removeEventListener(type, handler, false);
-            } else if (element.detachEvent) {
-                element.detachEvent("on" + type, handler);
-            } else {
-                element["on" + type] = null;
-            }
-        },
-        getEvent: function (event) {
-            return event ? event : window.event;
-        },
-
-        getTarget: function (event) {
-            return event.target || event.srcElement;
-        },
-
-        preventDefault: function (event) {
-            if (event.preventDefault) {
-                event.preventDefault();
-            } else {
-                event.returnValue = false;
-            }
-        },
-
-        stopPropagation: function (event) {
-            if (event.stopPropagation) {
-                event.stopPropagation();
-            } else {
-                event.cancelBubble = true;
-            }
-        }
-    };
     var body = document.getElementsByTagName("body");
     var right_fixed_sidebar_close_prevent_0 = document.getElementsByClassName("right_fixed_sidebar_left");
     var right_fixed_sidebar_close_prevent = document.getElementsByClassName("right_fixed_sidebar_right");
     var $right_page = $(".right_fixed_sidebar_right");
-    EventUtil.addHandler(right_fixed_sidebar_close_prevent_0[0], "click", function () {
-        event = EventUtil.getEvent(event);
-        EventUtil.stopPropagation(event);
-    });
-    EventUtil.addHandler(right_fixed_sidebar_close_prevent[0], "click", function () {
-        event = EventUtil.getEvent(event);
-        EventUtil.stopPropagation(event);
-    });
-    EventUtil.addHandler(body[0], "click", function () {
-        $right_page.eq(0).animate({width: "0px"}, 300);
-    })
+               right_fixed_sidebar_close_prevent_0[0].addEventListener('click',function () {
+               event.stopPropagation()
+           })
+           right_fixed_sidebar_close_prevent[0].addEventListener('click',function () {
+               event.stopPropagation()
+           })
+           body[0].addEventListener('click',function () {
+               $right_page.eq(0).animate({width: "0px"}, 300);
+           })
 
 }
